@@ -12,9 +12,18 @@ def blob():
     p = res.polarity
     if p < 0 :
         a = 'Negative'
+    elif p ==0:
+        a='Neutral'
     else:
-        a='Positive'
+        a="Positive"
     return render_template('result.html', state=a, pol=p)
+
+@app.route('/json')
+def json():
+    res = TextBlob(str(request.args['text']))
+    p = res.sentiment
+    return jsonify(p)
+
 
 
 if __name__ == '__main__':
